@@ -73,3 +73,101 @@ In another terminal:
 Frontend runs at:
 
     http://localhost:3000
+
+## Contributing
+This project is maintained by the internal development team. Contributions are restricted to authorized team members. Please follow these guidelines to ensure a smooth collaboration process.
+
+### Branching Strategy
+We use **Trunk-Based Development** for managing our codebase:
+
+- **Main Branch (**`main`**)**: The `main` branch is the primary branch and should always be in a production-ready state.
+- **Supporting Branches**: Create branches off `main` for specific changes. These branches **should be short-lived** and merged back into `main` frequently via pull requests (PRs). Use the following branch types:
+  - `feature/<description>`: For new features or enhancements (e.g., `feature/add-user-auth`).
+  - `fix/<description>`: For bug fixes or performance-related issues (e.g., `fix/login-bug` or `fix/slow-api-response`).
+  - `chore/<description>`: For general maintenance tasks, such as updating dependencies or build tools (e.g., `chore/update-npm-packages`).
+  - `ci/<description>`: For changes to CI/CD pipelines or configurations (e.g., `ci/add-github-actions-workflow`).
+  - `docs/<description>`: For documentation updates (e.g., `docs/update-readme`).
+  - `test/<description>`: For adding or updating tests (e.g., `test/add-unit-tests`).
+  - `refactor/<description>`: For code refactoring or performance improvements without changing functionality (e.g., `refactor/optimize-database-query`).
+  
+**Pull Requests (PRs)**: All changes must go through a pull request for code review before merging into `main`. Keep PRs small and focused to facilitate quick reviews.
+
+### Commit Messages
+
+We follow the **Conventional Commits** specification for clear and consistent commit messages. Each commit message should follow this structure:
+
+```
+<type>(<scope>): <short description>
+```
+
+- **Types**:
+  - `feat`: A new feature.
+  - `fix`: A bug fix or performance issue resolution.
+  - `test`: Adding or modifying tests.
+  - `docs`: Documentation changes.
+  - `ci`: Changes to CI/CD pipelines or configurations (e.g., GitHub Actions workflows).
+  - `chore`: General maintenance tasks (e.g., updating dependencies or build scripts).
+  - `refactor`: Code refactoring or performance improvements without changing functionality.
+- **Scope**: A brief context of the change (e.g., `auth`, `ui`, `api`, `github`).
+- **Short Description**: A concise summary of the change (50 characters or less).
+
+**Examples**:
+
+```
+feat(auth): add user login endpoint
+fix(ui): resolve button alignment issue
+test(api): add unit tests for endpoints
+docs(readme): update contributing guidelines
+ci(github): add automated testing workflow
+chore(deps): update lodash to v4.17.21
+refactor(api): optimize query performance
+```
+
+### Contribution Workflow
+obs.: It is recommended you use ssh, if you haven't set it yet check it [here](https://docs.github.com/en/authentication/connecting-to-github-with-ssh).
+1. **Clone the Repository**: Clone the main repository to your local machine.
+
+   ```bash
+   git clone <repository-url>
+   ```
+
+2. **Create a Branch**:
+
+   ```bash
+   git checkout -b <type>/<description>
+   ```
+
+   Example: `git checkout -b ci/add-github-actions`
+
+3. **Make Changes**: Implement your changes, ensuring code quality and adherence to project standards.
+
+4. **Commit Changes**: Use Conventional Commits for your commit messages.
+
+   ```bash
+   git commit -m "ci(github): add automated testing workflow"
+   ```
+
+5. **Push to the Repository**:
+
+   ```bash
+   git push origin <type>/<description>
+   ```
+
+6. **Open a Pull Request**: Submit a PR to the `main` branch within the repository. Include a clear description of your changes and reference any related issues.
+
+7. **Code Review**: Address feedback from reviewers and make necessary changes.
+
+8. **Merge and Cleanup**: Once approved, your PR will be merged into `main`. Delete the branch after merging to keep the repository clean.
+
+   ```bash
+   git push origin --delete <type>/<description>
+   ```
+
+### Additional Guidelines
+
+- Keep commits atomic (one logical change per commit).
+- Write tests for new features, bug fixes, or performance improvements where applicable.
+- Ensure your code passes all existing tests and linting checks.
+- Use `ci/` for changes to CI/CD pipelines (e.g., GitHub Actions, Jenkins) and `chore/` for other maintenance tasks (e.g., dependency updates).
+- For performance improvements, use `refactor/` for non-functional optimizations (e.g., `refactor/optimize-rendering`) or `fix/` for performance-related bug fixes (e.g., `fix/slow-page-load`).
+- Ensure branch protection rules are respected to prevent direct pushes to `main`.
