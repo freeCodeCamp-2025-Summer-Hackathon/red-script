@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "skill-swap",
+    "version": "1.0.0",
+    "workspaces": [
+        "frontend",
+        "backend"
+    ],
+    "devDependencies": {
+        "@types/node": "^24.0.8",
+        "eslint": "^9.30.0",
+        "eslint-config-prettier": "^10.1.5",
+        "eslint-plugin-prettier": "^5.5.1",
+        "prettier": "^3.6.2",
+        "typescript": "^5.8.3"
+    },
+    "scripts": {
+        "lint": "eslint . --ext .ts,.js,.vue"
+    }
+}
