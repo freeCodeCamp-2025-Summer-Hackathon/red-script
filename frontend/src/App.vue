@@ -1,22 +1,22 @@
 <template>
   <div>
-    <h1>Users</h1>
-    <ul>
-      <li
-        v-for="user in users"
-        :key="user.id"
-      >
-        <strong>{{ user.name ?? "—" }}</strong>
-        <span>({{ user.email }})</span>
-      </li>
-    </ul>
-    <p v-if="error">Error: {{ error }}</p>
+    <LoginPage />
+    <div>
+      <h1>Users</h1>
+      <ul>
+        <li v-for="user in users" :key="user.id">
+          <strong>{{ user.name ?? "—" }}</strong>
+          <span>({{ user.email }})</span>
+        </li>
+      </ul>
+      <p v-if="error">Error: {{ error }}</p>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
-
+import LoginPage from "./pages/LoginPage.vue";
 interface User {
   id: number;
   email: string;
@@ -38,5 +38,4 @@ onMounted(async () => {
 });
 </script>
 
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>
