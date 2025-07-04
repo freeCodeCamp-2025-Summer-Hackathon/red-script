@@ -17,6 +17,7 @@ model Users {
   guid               String               @unique @default(uuid())
   email              String               @unique
   username           String               @unique
+  fullName           String
   password           String
   isActive           Boolean              @default(true)
   bio                String?

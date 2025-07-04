@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
-    "build": "tsc -b",
-    "start": "node dist\\index.js",
-    "lint": "eslint . --ext .ts"
+    "dev": "pnpm run cert && pnpm exec ts-node-dev --clear --respawn src/server.ts",
+    "build": "tsc -p .",
+    "start": "node dist/server.js",
+    "lint": "eslint . --ext .ts",
+    "cert": "pnpm exec ts-node --transpile-only src/scripts/gencert.ts"
   },
   "keywords": [],
   "author": "",
@@ -15,16 +16,23 @@
   "dependencies": {
     "@prisma/client": "^6.10.1",
     "@types/cors": "^2.8.19",
+    "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
+    "dotenv": "^17.0.1",
     "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
     "prisma": "^6.10.1",
     "reflect-metadata": "^0.2.2",
-    "sqlite3": "^5.1.7"
+    "sqlite3": "^5.1.7",
+    "zod": "^3.25.73"
   },
   "devDependencies": {
     "@types/express": "^5.0.3",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^24.0.8",
     "eslint-plugin-node": "^11.1.0",
+    "selfsigned": "^2.4.1",
+    "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.8.3"
   }
