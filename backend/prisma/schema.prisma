@@ -11,8 +11,262 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id    Int     @id @default(autoincrement())
-  name  String
-  email String  @unique
+
+model Users {
+  id                 Int                  @id @default(autoincrement())
+  guid               String               @unique @default(uuid())
+  email              String               @unique
+  username           String               @unique
+  password           String
+  isActive           Boolean              @default(true)
+  bio                String?
+  timezoneOffset     Int
+  latitude           Float?
+  longitude          Float?
+  zip                String?
+  city               String?
+  state              String?
+  country            Int?
+  createdAt          DateTime             @default(now())
+
+  pictures           UserPictures[]
+  contactMethods     ContactMethods[]
+  posts              Posts[]
+  tradeRequestsFrom  TradeRequests[]      @relation("TR_From")
+  reviewsGiven       Reviews[]            @relation("R_Given")
+  reviewsReceived    Reviews[]            @relation("R_Recv")
+  messagesSent       Messages[]
+
+  @@index([latitude, longitude])
+}
+
+model UserPictures {
+  id            Int           @id @default(autoincrement())
+  guid          String        @unique @default(uuid())
+  url           String
+  pictureTypeId Int
+  userId        Int
+
+  user          Users         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type          PictureTypes  @relation(fields: [pictureTypeId], references: [id])
+
+  @@index([userId])
+}
+
+model PictureTypes {
+  id      Int             @id @default(autoincrement())
+  guid    String          @unique @default(uuid())
+  name    String          @unique
+  pictures UserPictures[]
+}
+
+model ContactMethods {
+  id        Int                   @id @default(autoincrement())
+  guid      String                @unique @default(uuid())
+  value     String
+  isPublic  Boolean               @default(true)
+  typeId    Int
+  userId    Int
+
+  user      Users                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      ContactMethodTypes    @relation(fields: [typeId], references: [id])
+
+  @@index([userId])
+}
+
+model ContactMethodTypes {
+  id       Int              @id @default(autoincrement())
+  guid     String           @unique @default(uuid())
+  name     String           @unique
+  methods  ContactMethods[]
+}
+
+model Skills {
+  id            Int        @id @default(autoincrement())
+  guid          String     @unique @default(uuid())
+  name          String     @unique
+  parentSkillId Int?
+  parent        Skills?    @relation("SkillTree", fields: [parentSkillId], references: [id])
+  children      Skills[]   @relation("SkillTree")
+
+  offeredPosts  PostOffers[]
+  wantedPosts   PostWants[]
+  reviews       Reviews[]
+
+  @@index([parentSkillId])
+}
+
+model Tags {
+  id          Int      @id @default(autoincrement())
+  guid        String   @unique @default(uuid())
+  name        String   @unique
+  parentTagId Int?
+  parent      Tags?    @relation("TagTree", fields: [parentTagId], references: [id])
+  children    Tags[]   @relation("TagTree")
+
+  posts       PostTags[]
+
+  @@index([parentTagId])
+}
+
+model Posts {
+  id            Int         @id @default(autoincrement())
+  guid          String      @unique @default(uuid())
+  title         String
+  description   String
+  radius        Float?
+  isActive      Boolean     @default(true)
+  createdOn     DateTime    @default(now())
+  updatedOn     DateTime    @updatedAt
+  typeId        Int
+  userId        Int
+
+  user          Users       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type          PostTypes   @relation(fields: [typeId], references: [id])
+  offers        PostOffers[]
+  wants         PostWants[]
+  tags          PostTags[]
+  tradeRequests TradeRequests[]
+
+  @@index([isActive])
+}
+
+model PostTypes {
+  id     Int     @id @default(autoincrement())
+  guid   String  @unique @default(uuid())
+  name   String  @unique
+  posts  Posts[]
+}
+
+model PostOffers {
+  id       Int     @id @default(autoincrement())
+  guid     String  @unique @default(uuid())
+  postId   Int
+  skillId  Int
+
+  post     Posts   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  skill    Skills  @relation(fields: [skillId], references: [id])
+
+  @@index([skillId])
+  @@index([postId])
+}
+
+model PostWants {
+  id       Int     @id @default(autoincrement())
+  guid     String  @unique @default(uuid())
+  postId   Int
+  skillId  Int
+
+  post     Posts   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  skill    Skills  @relation(fields: [skillId], references: [id])
+
+  @@index([skillId])
+  @@index([postId])
+}
+
+model PostTags {
+  id      Int    @id @default(autoincrement())
+  postId  Int
+  tagId   Int
+
+  post    Posts  @relation(fields: [postId], references: [id], onDelete: Cascade)
+  tag     Tags   @relation(fields: [tagId], references: [id])
+
+  @@unique([postId, tagId])
+  @@index([tagId])
+}
+
+model TradeRequests {
+  id          Int      @id @default(autoincrement())
+  guid        String   @unique @default(uuid())
+  createdOn   DateTime @default(now())
+  respondedOn DateTime?
+  isActive    Boolean  @default(true)
+  postId      Int
+  fromUserId  Int
+  statusId    Int
+
+  post        Posts                  @relation(fields: [postId], references: [id])
+  fromUser    Users                  @relation("TR_From", fields: [fromUserId], references: [id])
+  status      TradeRequestStatuses   @relation(fields: [statusId], references: [id])
+  swap        Swaps?
+  conversation Conversations?
+
+  @@index([postId])
+  @@index([fromUserId])
+}
+
+model TradeRequestStatuses {
+  id        Int             @id @default(autoincrement())
+  guid      String          @unique @default(uuid())
+  name      String          @unique
+  requests  TradeRequests[]
+}
+
+model Swaps {
+  id             Int      @id @default(autoincrement())
+  guid           String   @unique @default(uuid())
+  startOn        DateTime @default(now())
+  endOn          DateTime?
+  tradeRequestId Int      @unique
+  statusId       Int
+
+  tradeRequest TradeRequests @relation(fields: [tradeRequestId], references: [id])
+  status       SwapStatuses  @relation(fields: [statusId], references: [id])
+  reviews      Reviews[]
+
+  @@index([statusId])
+}
+
+model SwapStatuses {
+  id     Int     @id @default(autoincrement())
+  guid   String  @unique @default(uuid())
+  name   String  @unique
+  swaps  Swaps[]
+}
+
+model Reviews {
+  id         Int      @id @default(autoincrement())
+  guid       String   @unique @default(uuid())
+  rating     Int
+  comment    String?
+  createdOn  DateTime @default(now())
+  swapId     Int
+  reviewerId Int
+  revieweeId Int
+  skillId    Int?
+
+  swap      Swaps   @relation(fields: [swapId], references: [id])
+  reviewer  Users   @relation("R_Given", fields: [reviewerId], references: [id])
+  reviewee  Users   @relation("R_Recv",  fields: [revieweeId], references: [id])
+  skill     Skills? @relation(fields: [skillId], references: [id])
+
+  @@index([skillId])
+  @@index([revieweeId])
+}
+
+model Conversations {
+  id             Int      @id @default(autoincrement())
+  guid           String   @unique @default(uuid())
+  createdOn      DateTime @default(now())
+  tradeRequestId Int      @unique
+
+  tradeRequest TradeRequests @relation(fields: [tradeRequestId], references: [id])
+  messages     Messages[]
+}
+
+model Messages {
+  id             Int      @id @default(autoincrement())
+  guid           String   @unique @default(uuid())
+  body           String
+  sentOn         DateTime @default(now())
+  readOn         DateTime?
+  conversationId Int
+  senderId       Int
+
+  conversation   Conversations @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  sender         Users         @relation(fields: [senderId], references: [id])
+
+  @@index([conversationId])
+  @@index([senderId])
 }
