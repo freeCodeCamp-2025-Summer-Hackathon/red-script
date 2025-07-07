@@ -1,7 +1,7 @@
 <template>
   <div>
     <LoginPage />
-    <div>
+    <!-- <div>
       <h1>Users</h1>
       <ul>
         <li v-for="user in users" :key="user.id">
@@ -10,7 +10,7 @@
         </li>
       </ul>
       <p v-if="error">Error: {{ error }}</p>
-    </div>
+    </div> -->
   </div>
 </template>
 

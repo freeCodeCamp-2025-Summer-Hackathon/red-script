@@ -8,6 +8,7 @@
       <div class="flex flex-col gap-4">
         <!-- Name -->
         <input
+          name="name"
           type="text"
           placeholder="Full name"
           required
@@ -15,6 +16,7 @@
         />
         <!-- Username -->
         <input
+          name="username"
           type="text"
           placeholder="Username"
           required
@@ -54,6 +56,7 @@
       <div class="flex flex-col gap-4">
         <!-- City -->
         <input
+          name="city"
           type="text"
           placeholder="City"
           required
@@ -61,6 +64,7 @@
         />
         <!-- State -->
         <input
+          name="state"
           type="text"
           placeholder="State"
           required
@@ -68,6 +72,7 @@
         />
         <!-- Country -->
         <input
+          name="country"
           type="text"
           placeholder="Country"
           required
@@ -75,6 +80,7 @@
         />
         <!-- ZIP -->
         <input
+          name="zip"
           type="text"
           placeholder="ZIP"
           required
