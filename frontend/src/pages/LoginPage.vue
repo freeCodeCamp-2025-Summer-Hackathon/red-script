@@ -27,13 +27,11 @@
       </div>
     </div>
   </div>
-  <Footer />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import FormLogin from "../components/auth/components/FormLogin.vue";
-import Footer from "../components/layout/Footer.vue";
 import FormCreateAccount from "../components/auth/components/FormCreateAccount.vue";
 
 const isSignIn = ref(true);
