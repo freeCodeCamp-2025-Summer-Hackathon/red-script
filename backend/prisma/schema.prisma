@@ -144,7 +144,8 @@ model PostOffers {
   guid     String  @unique @default(uuid())
   postId   Int
   skillId  Int
-
+  orderNum Int
+  
   post     Posts   @relation(fields: [postId], references: [id], onDelete: Cascade)
   skill    Skills  @relation(fields: [skillId], references: [id])
 
