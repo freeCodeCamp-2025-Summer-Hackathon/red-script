@@ -4,4 +4,4 @@ node_modules
 
 /generated/prisma
 /prisma/dev.db
-/certs/*.pem
+/certs
