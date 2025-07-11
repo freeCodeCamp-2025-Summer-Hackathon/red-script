@@ -1,6 +1,6 @@
 # red-script
 
-Monorepo for a SkillSwap, using:
+Monorepo for SkillSwap, using:
 
 - Vue 3 (Vite, TypeScript) frontend
 - Express (TypeScript) backend with Prisma
@@ -47,6 +47,33 @@ Run migrations:
 Launch Prisma Studio to inspect & insert data whenever needed
 
     npx prisma studio
+
+---
+
+## Install mkcert
+
+On Windows, open an elevated PowerShell instance and run the following:
+
+    Set-ExecutionPolicy Bypass -Scope Process -Force;
+[System.Net.ServicePointManager]::SecurityProtocol = 3072;
+iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'));
+choco install mkcert -y;
+mkcert -install
+
+
+On Linux, use your distro's package manager to install mkcert directly. 
+
+---
+
+## Populate your .env files
+
+Navigate to the backend folder.
+     -Create a file called .env. 
+     -Add the following keys, along with each value you wish to use
+         -DATABASE_URL="file:./dev.db"
+         -JWT_SECRET
+         -AZURE_STORAGE_CONNECTION_STRING
+Note: If you are a Hackathon leader / judge and you need to run our project, please reach out to the team on Discord to get copies of our .env files.
 
 ---
 
