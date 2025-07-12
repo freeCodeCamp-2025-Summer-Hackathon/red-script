@@ -14,6 +14,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@azure/storage-blob": "^12.27.0",
     "@prisma/client": "^6.10.1",
     "@types/cors": "^2.8.19",
     "bcryptjs": "^3.0.2",
@@ -21,6 +22,7 @@
     "dotenv": "^17.0.1",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
+    "multer": "^2.0.1",
     "prisma": "^6.10.1",
     "reflect-metadata": "^0.2.2",
     "sqlite3": "^5.1.7",
@@ -29,7 +31,10 @@
   "devDependencies": {
     "@types/express": "^5.0.3",
     "@types/jsonwebtoken": "^9.0.10",
+    "@types/express-serve-static-core": "^5.0.6",
+    "@types/multer": "^2.0.0",
     "@types/node": "^24.0.8",
+    "@types/qs": "^6.14.0",
     "eslint-plugin-node": "^11.1.0",
     "selfsigned": "^2.4.1",
     "ts-node": "^10.9.2",
