@@ -5,7 +5,7 @@ import { createApp } from "./app";
 import routes from "./routes";
 
 const app = createApp();
-const key  = fs.readFileSync("certs/key.pem");
+const key = fs.readFileSync("certs/key.pem");
 const cert = fs.readFileSync("certs/cert.pem");
 
 
