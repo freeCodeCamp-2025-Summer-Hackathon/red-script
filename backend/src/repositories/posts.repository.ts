@@ -13,4 +13,13 @@ const findAll = async () => {
     });
 };
 
-export default {findAll};
+const deletePost = async (postID: string) => {
+
+    return await prisma.posts.delete({
+        where: {
+            guid: postID,
+        },
+    });
+};
+
+export {findAll, deletePost};
