@@ -15,9 +15,13 @@ const findAll = async () => {
 
 const deletePost = async (postID: string) => {
 
-    return await prisma.posts.delete({
+
+    return await prisma.posts.update({
         where: {
-            guid: postID,
+            guid: postID
+        },
+        data: {
+            isActive: false
         },
     });
 };
