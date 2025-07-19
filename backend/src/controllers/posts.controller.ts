@@ -11,13 +11,28 @@ const getAllPosts = async (req: Request, res: Response) => {
     }
 };
 
-const deleteAPost = async (req: Request, res: Response) => {
+const getPost = async (req: Request, res: Response) => {
 
     if (!req.params.id) {
         res.status(500).json({message: 'Invalid postID provided, unable to delete post.'});
         return
     }
 
+    try {
+        const post = await PostsService.getPost(req.params.id);
+        res.json(post);
+        res.status(200);
+    } catch (error) {
+        res.status(500).json({message: 'Internal server error getting post'});
+    }
+}
+
+const deleteAPost = async (req: Request, res: Response) => {
+
+    if (!req.params.id) {
+        res.status(500).json({message: 'Invalid postID provided, unable to delete post.'});
+        return
+    }
     try {
         const deletedPost = await PostsService.deletePost(req.params.id);
         res.json({PostTitle: `${deletedPost.title}`, PostID: `${deletedPost.guid}`});
@@ -28,4 +43,8 @@ const deleteAPost = async (req: Request, res: Response) => {
 
 };
 
-export  {getAllPosts, deleteAPost};
+export  {
+    getAllPosts,
+    getPost,
+    deleteAPost
+};

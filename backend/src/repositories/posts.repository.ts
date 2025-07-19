@@ -13,9 +13,15 @@ const findAll = async () => {
     });
 };
 
+const findOne = async (postID: string) => {
+    return await prisma.posts.findUnique({
+        where: {
+            guid: postID,
+        },
+    });
+};
+
 const deletePost = async (postID: string) => {
-
-
     return await prisma.posts.update({
         where: {
             guid: postID
@@ -26,4 +32,7 @@ const deletePost = async (postID: string) => {
     });
 };
 
-export {findAll, deletePost};
+
+
+
+export {findAll, deletePost, findOne};
