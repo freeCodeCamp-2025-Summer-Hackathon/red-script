@@ -1,4 +1,5 @@
 import {prisma} from "../config/prisma";
+import {Posts} from '../Models/Posts'
 
 const findAll = async () => {
     return await prisma.posts.findMany({
@@ -21,6 +22,13 @@ const findOne = async (postID: string) => {
     });
 };
 
+const findMany = async (filterParams: {[key: string]: any}) => {
+    filterParams.isActive = true;
+   return await prisma.posts.findMany({
+    where: filterParams
+   });
+};
+
 const deletePost = async (postID: string) => {
     return await prisma.posts.update({
         where: {
@@ -35,4 +43,4 @@ const deletePost = async (postID: string) => {
 
 
 
-export {findAll, deletePost, findOne};
+export {findAll, deletePost, findOne, findMany};
