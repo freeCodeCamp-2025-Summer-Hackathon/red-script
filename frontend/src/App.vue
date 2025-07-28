@@ -1,6 +1,6 @@
 <template>
   <div>
-    <LoginPage @registrationSubmitted="handleRegistrationSubmitted"/>
+    <LoginPage @registrationSubmitted="handleRegistrationSubmitted" @loginSubmitted="handleLoginSubmitted"/>
     <!-- <div>
       <h1>Users</h1>
       <ul>
@@ -70,7 +70,27 @@ fetch("https://localhost:4000/api/auth/register", {
   //   toast.error("Username must be at least 3 characters!")
   // }
   
-  
+} catch (e: any) {
+    error.value = e.message;
+    console.error(e);
+    // toast.error("Registration Error!");
+  }
+}
+
+const handleLoginSubmitted = (loginData: Object) => {
+  try {
+    console.log(loginData)
+    let token=''
+  fetch("https://localhost:4000/api/auth/login", {
+method: "POST", 
+headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify(loginData),
+  })
+  .then(response => response.json())
+  .then(data => {token=data})
+  .catch(error => console.error("Error:", error));
 } catch (e: any) {
     error.value = e.message;
     console.error(e);
@@ -80,61 +100,12 @@ fetch("https://localhost:4000/api/auth/register", {
 
 
 
-
 onMounted(async () => {
   
 //   try {
-    
-      
-// //     const payload = {
-// //   email: "test@example.com",
-// //   password: "superSecure123!",
-// //   username: "JohnSmith",
-// //   fullName: "John Smith",
-
-// //   timezoneOffset: -240, // for example, UTC-4
-// //   zip: "44114",
-// //   city: "Cleveland",
-// //   state: "Ohio",
-// //   country: 1,
-
-// //   latitude: 41.4993,
-// //   longitude: -81.6944
-// // };
-// // let token = '';
-// // const res = fetch("https://localhost:4000/api/auth/register", {
-// //   method: "POST",
-// //   headers: {
-// //     "Content-Type": "application/json"
-// //   },
-// //   body: JSON.stringify(payload)
-
-// // })
-// //   .then(response => response.json())
-// //   .then(data => {token=data})
-// //   .catch(error => console.error("Error:", error));
-
-//   const loginpayload= {
-//     email: "test@example.com",
-//     password: "superSecure123!",
-//   }
-//   let token2=''
-//   fetch("https://localhost:4000/api/auth/login", {
-// method: "POST", 
-// headers: {
-//     "Content-Type": "application/json"
-//   },
-//   body: JSON.stringify(loginpayload),
-//   })
-//   .then(response => response.json())
-//   .then(data => {token2=data})
-//   .catch(error => console.error("Error:", error));
 //     // const res = await fetch("https://localhost:4000/api/auth/register");
 //     // if (!res.ok) throw new Error(Status ${res.status});
 //     // users.value = await res.json();
-    
-//     //toast.success("Login Successful!")
-
 //   } catch (e: any) {
 //     error.value = e.message;
 //     console.error(e);
