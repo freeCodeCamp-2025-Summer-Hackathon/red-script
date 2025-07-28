@@ -27,14 +27,14 @@ const users = ref<User[]>([]);
 const error = ref<string | null>(null);
 
 onMounted(async () => {
-  try {
-    const res = await fetch("http://localhost:4000/api/users");
-    if (!res.ok) throw new Error(`Status ${res.status}`);
-    users.value = await res.json();
-  } catch (e: any) {
-    error.value = e.message;
-    console.error(e);
-  }
+  // try {
+  //   const res = await fetch("https://localhost:4000/api/users");
+  //   if (!res.ok) throw new Error(`Status ${res.status}`);
+  //   users.value = await res.json();
+  // } catch (e: any) {
+  //   error.value = e.message;
+  //   console.error(e);
+  // }
 });
 </script>
 
