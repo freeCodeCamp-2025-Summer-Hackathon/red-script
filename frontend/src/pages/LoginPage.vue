@@ -23,7 +23,7 @@
         class="w-full lg:w-1/2 flex flex-col justify-center items-center bg-white shadow-none lg:shadow-[-2px_0_2px_0_rgba(0,0,0,0.2)] pb-8 lg:py-0"
       >
         <FormLogin v-if="isSignIn" @toggleForm="isSignIn = false" />
-        <FormCreateAccount v-else @toggleForm="isSignIn = true" />
+        <FormCreateAccount v-else @toggleForm="isSignIn = true" @registrationSubmitted="emitRegistrationSubmitted" />
       </div>
     </div>
   </div>
@@ -33,6 +33,11 @@
 import { ref } from "vue";
 import FormLogin from "../components/auth/components/FormLogin.vue";
 import FormCreateAccount from "../components/auth/components/FormCreateAccount.vue";
+
+const emit = defineEmits(['registrationSubmitted'])
+const emitRegistrationSubmitted = (registrationData: Object) => {
+  emit("registrationSubmitted", registrationData)
+};
 
 const isSignIn = ref(true);
 </script>
