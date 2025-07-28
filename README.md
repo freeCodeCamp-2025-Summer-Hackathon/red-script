@@ -36,6 +36,11 @@ This installs dependencies for both frontend and backend.
 
 ---
 
+## Populate your .env files
+
+Note: If you are a Hackathon leader / judge and you need to run our project, please reach out to the team on Discord to get a copy of our .env file to place in the backend folder.
+
+---
 ## Database Setup (SQLite)
 
 Run migrations:
@@ -55,25 +60,13 @@ Launch Prisma Studio to inspect & insert data whenever needed
 On Windows, open an elevated PowerShell instance and run the following:
 
     Set-ExecutionPolicy Bypass -Scope Process -Force;
-[System.Net.ServicePointManager]::SecurityProtocol = 3072;
-iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'));
-choco install mkcert -y;
-mkcert -install
+    [System.Net.ServicePointManager]::SecurityProtocol = 3072;
+    iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'));
+    choco install mkcert -y;
+    mkcert -install
 
 
 On Linux, use your distro's package manager to install mkcert directly. 
-
----
-
-## Populate your .env files
-
-Navigate to the backend folder.
-     -Create a file called .env. 
-     -Add the following keys, along with each value you wish to use
-         -DATABASE_URL="file:./dev.db"
-         -JWT_SECRET
-         -AZURE_STORAGE_CONNECTION_STRING
-Note: If you are a Hackathon leader / judge and you need to run our project, please reach out to the team on Discord to get copies of our .env files.
 
 ---
 
